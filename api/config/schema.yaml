@@ -1,0 +1,73 @@
+# api/config/schema.yaml
+# The list of types and properties we want to use
+types:
+  Thing:
+    properties:
+      name: ~
+  Person:
+    parent: false
+    properties:
+      email:
+        unique: true
+      familyName: ~
+      givenName: ~
+      additionalName: ~
+      address: { range: "PostalAddress" }
+  PostalAddress:
+    parent: false
+    properties:
+      addressCountry: { range: "Text" }
+      addressLocality: ~
+      addressRegion: ~
+      postOfficeBoxNumber: ~
+      postalCode:
+        nullable: false
+      streetAddress: ~
+  Product:
+    parent: false
+    properties:
+      aggregateRating: ~
+      brand: { range: "Brand" }
+      model: ~
+      sku: ~
+      color: ~
+      depth: { range: "QuantitativeValue" }
+      height: { range: "QuantitativeValue" }
+      width: { range: "QuantitativeValue" }
+      weight: ~
+      releaseDate: ~
+      isSimilarTo: { range: "Product" }
+      offers: ~
+  Brand:
+    parent: false
+    properties:
+      aggregateRating: ~
+  Order:
+    parent: false
+    properties:
+      customer: { range: "Person" }
+      orderedItem: { range: "Product" }
+      orderDate: { range: "DateTime" }
+  QuantitativeValue:
+    properties:
+      value:
+        range: "Number"
+      unitCode:
+        range: "Text"
+      unitText: ~
+  AggregateRating:
+    properties:
+      itemReviewed: ~
+      ratingCount: ~
+      reviewCount: ~
+  Rating:
+    properties:
+      author: { range: "Person" }
+      ratingValue: { range: "Number" }
+      ratingExplanation: {range: "Text" }
+  Offer:
+    properties:
+      itemOffered: { range: "Product" }
+      price: { range: "Number" }
+      priceCurrency: { range: "Text" }
+
